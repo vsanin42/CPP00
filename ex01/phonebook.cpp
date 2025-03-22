@@ -6,12 +6,14 @@
 /*   By: vsanin <vsanin@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 12:33:39 by vsanin            #+#    #+#             */
-/*   Updated: 2025/03/22 20:28:27 by vsanin           ###   ########.fr       */
+/*   Updated: 2025/03/22 21:17:40 by vsanin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
+#include <limits>
 
 std::string	trim(std::string str)
 {
@@ -82,15 +84,11 @@ class	PhoneBook
 		}
 		bool parseIndex(std::string input, int &index)
 		{
-			try
-			{
-				index = std::stoi(input);
-			}
-			catch (std::invalid_argument)
-			{
-				return false;
-			}
-			return true;
+			std::istringstream stream(input);
+			
+			if (stream >> index)
+				return true;
+			return false;
 		}
 	public:
 		PhoneBook() : count(0) {};
@@ -100,7 +98,7 @@ class	PhoneBook
 			count++;
 			std::cout << "Contact added successfully!" << "\n";
 		}
-		void showContactList(void)
+		int showContactList(void)
 		{
 			std::string item;
 			for (int i = 0; i < 8; i++)
@@ -108,7 +106,10 @@ class	PhoneBook
 				if (contacts[i].getFirstName().empty())
 				{
 					if (i == 0)
+					{
 						std::cout << "The phonebook is empty!" << "\n";
+						return (0);
+					}
 					break;
 				}
 				std::cout << std::right << std::setw(10) << i << " | ";
@@ -116,6 +117,7 @@ class	PhoneBook
 				std::cout << std::right << std::setw(10) << formatItem(contacts[i].getLastName()) << " | ";
 				std::cout << std::right << std::setw(10) << formatItem(contacts[i].getNickname()) << "\n";
 			}
+			return (1);
 		}
 		void findContact(void)
 		{
@@ -124,6 +126,7 @@ class	PhoneBook
 			bool		found = false;
 
 			std::cout << "Enter index of the contact to find: ";
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::getline(std::cin, input);
 			while (!parseIndex(input, index))
 			{
@@ -141,7 +144,7 @@ class	PhoneBook
 					std::cout << "Last name: " << "\t" << contacts[i].getLastName() << "\n";
 					std::cout << "Nickname: " << "\t" << contacts[i].getNickname() << "\n";
 					std::cout << "Phone number: " << "\t" << contacts[i].getPhoneNumber() << "\n";
-					std::cout << "Darkest secret: " << "\t" << contacts[i].getDarkestSecret() << "\n";
+					std::cout << "Darkest secret: " << contacts[i].getDarkestSecret() << "\n";
 					break ;
 				}
 			}
@@ -169,8 +172,8 @@ int main(void)
 		}
 		else if (cmd.compare("SEARCH") == 0)
 		{
-			phoneBook.showContactList();
-			phoneBook.findContact();
+			if (phoneBook.showContactList())
+				phoneBook.findContact();
 		}
 		else
 			continue;
