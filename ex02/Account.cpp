@@ -6,7 +6,7 @@
 /*   By: vsanin <vsanin@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 20:40:34 by vsanin            #+#    #+#             */
-/*   Updated: 2025/03/24 01:02:39 by vsanin           ###   ########.fr       */
+/*   Updated: 2025/03/24 01:09:06 by vsanin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ Account::~Account(void)
 
 void 	Account::makeDeposit(int deposit)
 {
-	int p_amount = _amount;
+	int p_amount = checkAmount();
 	_amount += deposit;
 	_nbDeposits++;
 	_displayTimestamp();
@@ -91,7 +91,7 @@ void 	Account::makeDeposit(int deposit)
 
 bool	Account::makeWithdrawal(int withdrawal)
 {
-	int p_amount = _amount;
+	int p_amount = checkAmount();
 	_displayTimestamp();
 	std::cout << " index:" << _accountIndex
 			  << ";p_amount:" << p_amount
@@ -112,4 +112,9 @@ bool	Account::makeWithdrawal(int withdrawal)
 		std::cout << "refused" << "\n";
 		return false;
 	}
+}
+
+int		Account::checkAmount(void) const
+{
+	return _amount;
 }
