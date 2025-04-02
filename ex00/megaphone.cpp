@@ -6,11 +6,12 @@
 /*   By: vsanin <vsanin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:13:40 by vsanin            #+#    #+#             */
-/*   Updated: 2025/03/19 20:15:59 by vsanin           ###   ########.fr       */
+/*   Updated: 2025/04/02 13:13:03 by vsanin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
 
 int main(int argc, char **argv)
 {

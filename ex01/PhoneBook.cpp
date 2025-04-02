@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsanin <vsanin@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: vsanin <vsanin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 15:20:29 by vsanin            #+#    #+#             */
-/*   Updated: 2025/03/23 19:26:56 by vsanin           ###   ########.fr       */
+/*   Updated: 2025/04/02 14:07:39 by vsanin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void PhoneBook::addContact(const Contact &newContact)
 	contacts[index] = newContact;
 	count < 8
 	? std::cout << "Contact added successfully!" << "\n"
-	: std::cout << "Contact replaced an old one at index [" << index << "]!" << "\n";
+	: std::cout << "Contact replaced an old one at index [" << index + 1 << "]!" << "\n";
 	count++;
 }
 
@@ -58,7 +58,7 @@ int PhoneBook::showContactList(void)
 			if (i == 0)
 			{
 				std::cout << "The phonebook is empty!" << "\n";
-				return (0);
+				return 0;
 			}
 			break;
 		}
@@ -67,7 +67,7 @@ int PhoneBook::showContactList(void)
 		std::cout << std::right << std::setw(10) << formatItem(contacts[i].getLastName()) << " | ";
 		std::cout << std::right << std::setw(10) << formatItem(contacts[i].getNickname()) << "\n";
 	}
-	return (1);
+	return 1;
 }
 
 void PhoneBook::findContact(void)
@@ -97,7 +97,7 @@ void PhoneBook::findContact(void)
 				std::cout << "Nickname: " << "\t" << contacts[i].getNickname() << "\n";
 				std::cout << "Phone number: " << "\t" << contacts[i].getPhoneNumber() << "\n";
 				std::cout << "Darkest secret: " << contacts[i].getDarkestSecret() << "\n";
-				break ;
+				break;
 			}
 		}
 		if (!found)
